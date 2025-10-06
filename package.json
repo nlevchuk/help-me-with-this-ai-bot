@@ -1,0 +1,46 @@
+{
+  "name": "help-me-with-this-ai-bot",
+  "version": "1.0.0",
+  "description": "An AI-powered telegram bot that converts user messages into answers",
+  "main": "dist/index.js",
+  "repository": "git@github.com:nlevchuk/help-me-with-this-ai-bot.git",
+  "author": "Nikita Levchuk <code@levch.uk>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/index.js",
+    "db:migrate": "NODE_OPTIONS='--import dotenv/config' typeorm-ts-node-esm migration:run -d ./src/data-source.ts",
+    "db:rollback": "NODE_OPTIONS='--import dotenv/config' typeorm-ts-node--esm migration:revert -d ./src/data-source.ts",
+    "reset-limits": "node ./dist/reset-limits.js"
+  },
+  "comment": {
+    "@nlevchuk/tg-misc": "file:../tg-misc",
+    "@nlevchuk/tg-message-removal": "file:../tg-message-removal",
+    "@nlevchuk/tg-message-translator": "file:../tg-message-translator",
+    "The above lines": "are for development only"
+  },
+  "dependencies": {
+    "@airbnb/node-memwatch": "^3.0.0",
+    "@grammyjs/auto-retry": "^2.0.2",
+    "@grammyjs/hydrate": "^1.6.0",
+    "@grammyjs/runner": "^2.0.3",
+    "@honeybadger-io/js": "^6.11.3",
+    "@nlevchuk/tg-misc": "^1.0.0",
+    "@nlevchuk/tg-message-removal": "^1.0.0",
+    "@nlevchuk/tg-message-translator": "^1.0.0",
+    "dotenv": "^17.2.2",
+    "grammy": "^1.38.2",
+    "openai": "^5.20.0",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.26",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "nanoid": "^5.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
