@@ -1,0 +1,78 @@
+- hosts: hmwt
+
+  remote_user: ubuntu
+
+  vars:
+    certs_dir_on_remote_host: ~/certs
+    logs_dir_on_remote_host: ~/logs
+    ssh_keypair_path: ~/.ssh/id_ed25519_hmwt_gh
+    known_hosts_path: ./known_hosts_for_gh.txt
+  vars_files:
+    - group_vars/all/vault.yml
+
+  tasks:
+    - name: Log into container registry
+      containers.podman.podman_login:
+        registry: ghcr.io
+        username: "{{ cr_username }}"
+        password: "{{ cr_token }}"
+
+    - name: Copy .env file
+      ansible.builtin.copy:
+        src: files/.env
+        dest: ~/.env
+        mode: '0644'
+
+    - name: Copy .tmux.conf file
+      ansible.builtin.copy:
+        src: files/.tmux.conf
+        dest: ~/.tmux.conf
+        mode: '0644'
+
+    - name: Create certs directory
+      ansible.builtin.file:
+        path: "{{ certs_dir_on_remote_host }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy ca.pem certificate for PostgreSQL
+      ansible.builtin.copy:
+        src: files/certs/ca.pem
+        dest: "{{ certs_dir_on_remote_host }}/ca.pem"
+        mode: '0600'
+
+    - name: Create logs directory
+      ansible.builtin.file:
+        path: "{{ logs_dir_on_remote_host }}"
+        state: directory
+        mode: '0755'
+
+    # Similar to: ssh-keygen -t ed25519 -C "smartbots@levch.uk" -N ""
+    - name: Generate SSH keypair for Github Actions locally
+      openssh_keypair:
+        path: "{{ ssh_keypair_path }}"
+        type: ed25519
+      delegate_to: localhost
+
+    # ssh-copy-id -f -i ~/.ssh/id_ed25519_hmwt_gh hmwt@<IP>
+    - name: Set authorized key for Github Actions
+      authorized_key:
+        user: "{{ ansible_user_id }}"
+        state: present
+        key: "{{ lookup('file', ssh_keypair_path + '.pub') }}"
+
+    - name: Check if known_hosts file exists
+      ansible.builtin.stat:
+        path: "{{ known_hosts_path }}"
+      register: known_hosts_file_status
+
+    - name: Prepare KNOWN_HOSTS file for Github Actions locally
+      ansible.builtin.shell: |
+        ssh-keyscan {{ inventory_hostname }} > {{ known_hosts_path }}
+      when: not known_hosts_file_status.stat.exists
+      delegate_to: localhost
+
+    - name: Print final instructions
+      ansible.builtin.debug:
+        msg: "a) Copy the content of {{ ssh_keypair_path }} to Settings -> Secrets -> Actions: 'SERVER_KEY' secret, and, b) copy the content of {{ known_hosts_path }} from 'ansible/' to Settings -> Secrets -> Actions: 'SERVER_KNOWN_HOSTS' secret"
+      delegate_to: localhost
