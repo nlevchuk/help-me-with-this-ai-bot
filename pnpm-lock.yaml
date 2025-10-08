@@ -39,8 +39,8 @@ importers:
         specifier: ^1.38.2
         version: 1.38.3
       openai:
-        specifier: ^5.20.0
-        version: 5.23.2
+        specifier: ^6.2.0
+        version: 6.2.0
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -532,12 +532,12 @@ packages:
   one-time@1.0.0:
     resolution: {integrity: sha512-5DXOiRKwuSEcQ/l0kGCF6Q3jcADFv5tSmRaJck/OqkVFcOzutB134KRSfF0xDrL39MNnqxbHBbUUcjZIhTgb2g==}
 
-  openai@5.23.2:
-    resolution: {integrity: sha512-MQBzmTulj+MM5O8SKEk/gL8a7s5mktS9zUtAkU257WjvobGc9nKcBuVwjyEEcb9SI8a8Y2G/mzn3vm9n1Jlleg==}
+  openai@6.2.0:
+    resolution: {integrity: sha512-qqjzHls7F5xkXNGy9P1Ei1rorI5LWupUUFWP66zPU8FlZbiITX8SFcHMKNZg/NATJ0LpIZcMUFxSwQmdeQPwSw==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
-      zod: ^3.23.8
+      zod: ^3.25 || ^4.0
     peerDependenciesMeta:
       ws:
         optional: true
@@ -1292,7 +1292,7 @@ snapshots:
     dependencies:
       fn.name: 1.1.0
 
-  openai@5.23.2: {}
+  openai@6.2.0: {}
 
   package-json-from-dist@1.0.1: {}
 
