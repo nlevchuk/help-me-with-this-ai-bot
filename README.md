@@ -149,3 +149,7 @@ Once the previos steps complete, configure the Github Actions by adding the foll
 
 - [ ] Describe the message translator feature and how it works (quoted messages, replied messages)
 - [ ] Describe the message removal feature and how it works
+- [ ] Modify the scripts/run_container.sh to ensure it terminates if any command fails (set -e)
+- [ ] Add support for more LLMs
+- [ ] Allow translating replies and quotes into languages other than the default on the fly; use `/translate <Language>` ([repo](https://github.com/nlevchuk/tg-message-translator))
+- [ ] When the Translator plugin is enabled, show system messages in the user's language
