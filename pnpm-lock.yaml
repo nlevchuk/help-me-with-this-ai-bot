@@ -30,8 +30,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(grammy@1.38.3)
       '@nlevchuk/tg-misc':
-        specifier: ^1.0.0
-        version: 1.0.0(grammy@1.38.3)
+        specifier: ^1.0.1
+        version: 1.0.1(grammy@1.38.3)
       dotenv:
         specifier: ^17.2.2
         version: 17.2.3
@@ -138,8 +138,8 @@ packages:
     peerDependencies:
       grammy: '>=1.38 <2'
 
-  '@nlevchuk/tg-misc@1.0.0':
-    resolution: {integrity: sha512-38KPvUxKND5qv5Dx4a0YXS0VBQWyfq+CIUksyqrpmjseyq5dpXOBI7WZGpAf+AWkijldXskn3IIJX3NiF6fwrQ==}
+  '@nlevchuk/tg-misc@1.0.1':
+    resolution: {integrity: sha512-BS+YRG7krf3bxOZ07/YvtkRJFb8TNNGc6kfLKOXeWk/fvhFiAnLkf9+r27CvaBcD1xAed5EbbPYFH6hrJ5P4pg==}
     engines: {node: '>=20'}
     peerDependencies:
       grammy: '>=1.38 <2'
@@ -928,10 +928,10 @@ snapshots:
 
   '@nlevchuk/tg-message-translator@1.0.0(grammy@1.38.3)':
     dependencies:
-      '@nlevchuk/tg-misc': 1.0.0(grammy@1.38.3)
+      '@nlevchuk/tg-misc': 1.0.1(grammy@1.38.3)
       grammy: 1.38.3
 
-  '@nlevchuk/tg-misc@1.0.0(grammy@1.38.3)':
+  '@nlevchuk/tg-misc@1.0.1(grammy@1.38.3)':
     dependencies:
       grammy: 1.38.3
 
