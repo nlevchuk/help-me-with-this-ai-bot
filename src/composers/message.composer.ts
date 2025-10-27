@@ -1,4 +1,3 @@
-import OpenAI from 'openai'
 import { getMainText, getQuoteText } from '@nlevchuk/tg-misc'
 
 import createComposer from '../createComposer.js'
