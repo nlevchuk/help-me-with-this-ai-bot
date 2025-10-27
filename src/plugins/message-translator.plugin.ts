@@ -15,12 +15,14 @@ import { handleUserMessage } from '../services/message.service.js'
 
 const { availableLanguages, aiInstructions } = messageTranslatorConfig;
 
-const sendAiRequestAdapter = (db, ai) => {
-  return (
-    aiRequest: AiRequest,
-    userId: string,
-    callback: (content: string) => Promise<void>,
-  ) => {
+type SendAiRequest = (
+  aiRequest: AiRequest,
+  userId: string,
+  callback: (content: string) => Promise<void>,
+) => Promise<void>;
+
+const sendAiRequestAdapter = (db, ai): SendAiRequest => {
+  return (aiRequest, userId, callback) => {
     return handleUserMessage(userId, aiRequest, { db, ai }, callback);
   }
 }
