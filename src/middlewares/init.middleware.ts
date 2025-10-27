@@ -7,7 +7,7 @@ import type { DbAdapter } from '../adapters/db.adapter.js'
 
 export const initAppContext = () => {
   return async (ctx: CustomContext, next: NextFunction): Promise<void> => {
-    ctx.appCtx = {};
+    ctx.appCtx = { user: undefined };
 
     await next();
   }
@@ -23,7 +23,7 @@ type StartCommandDbMethods = Pick<
 
 export const startCommand = (db: StartCommandDbMethods) => {
   return async (ctx: CustomContext): Promise<void> => {
-    const user = ctx.appCtx.user;
+    let user = ctx.appCtx.user;
     if (user) {
       await ctx.reply(
         textFormatter.status('You have already started it'),
@@ -59,7 +59,8 @@ export const startCommand = (db: StartCommandDbMethods) => {
       maxMessageLength: invitationToken.defaultMaxMessageLength,
     });
     // Don't forget to add created user to the app context
-    ctx.appCtx.user = await db.findUserById(userId);
+    user = await db.findUserById(userId);
+    ctx.appCtx.user = user ?? undefined;
 
     if (!invitationToken.allowedMultipleInvites) {
       await db.deactivateInvitationTokenById(invitationToken.id);

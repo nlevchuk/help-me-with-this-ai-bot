@@ -5,7 +5,7 @@ import { User } from './entity/User.js'
 
 type AppContext = {
   appCtx: {
-    user?: User;
+    user: User | undefined;
   };
 }
 export type CustomContext = HydrateFlavor<Context & AppContext>;
