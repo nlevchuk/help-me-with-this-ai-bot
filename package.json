@@ -1,6 +1,6 @@
 {
   "name": "help-me-with-this-ai-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An AI-powered telegram bot that converts user messages into answers",
   "main": "dist/index.js",
   "repository": "git@github.com:nlevchuk/help-me-with-this-ai-bot.git",
